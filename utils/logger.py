@@ -12,8 +12,6 @@ class ActionType(Enum):
     AUTH_LOGIN = "auth_login"
     AUTH_LOGOUT = "auth_logout"
     FETCH_EMAILS = "fetch_emails"
-    FILTER_APPLIED = "filter_applied"
-    EMAILS_SELECTED = "emails_selected"
     EMAILS_DELETED = "emails_deleted"
     AI_ANALYSIS = "ai_analysis"
     ERROR = "error"
@@ -164,25 +162,6 @@ def log_fetch_emails(count: int, query: str):
         ActionType.FETCH_EMAILS,
         f"Fetched {count} emails",
         {"count": count, "query": query},
-    )
-
-
-def log_filter_applied(filters: dict):
-    """Log filter application."""
-    filter_desc = ", ".join(f"{k}={v}" for k, v in filters.items() if v)
-    ActionLogger.log(
-        ActionType.FILTER_APPLIED,
-        f"Filters applied: {filter_desc}" if filter_desc else "Filters cleared",
-        filters,
-    )
-
-
-def log_emails_selected(count: int):
-    """Log email selection."""
-    ActionLogger.log(
-        ActionType.EMAILS_SELECTED,
-        f"Selected {count} emails",
-        {"count": count},
     )
 
 

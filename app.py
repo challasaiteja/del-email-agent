@@ -103,8 +103,6 @@ def init_app_state():
         st.session_state.labels = []
     if "categories" not in st.session_state:
         st.session_state.categories = None
-    if "current_tab" not in st.session_state:
-        st.session_state.current_tab = "emails"
     if "last_query" not in st.session_state:
         st.session_state.last_query = None
 

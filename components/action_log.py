@@ -85,8 +85,6 @@ def render_log_entry(entry: dict):
         ActionType.AUTH_LOGIN.value: "#17a2b8",
         ActionType.AUTH_LOGOUT.value: "#6c757d",
         ActionType.FETCH_EMAILS.value: "#007bff",
-        ActionType.FILTER_APPLIED.value: "#6610f2",
-        ActionType.EMAILS_SELECTED.value: "#fd7e14",
         ActionType.EMAILS_DELETED.value: "#dc3545",
         ActionType.AI_ANALYSIS.value: "#20c997",
         ActionType.ERROR.value: "#dc3545",

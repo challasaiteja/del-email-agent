@@ -1,7 +1,6 @@
 """Gmail API service for fetching and managing emails."""
 
-import base64
-from datetime import datetime, timedelta
+from datetime import datetime
 from email.utils import parsedate_to_datetime
 from typing import Any
 
@@ -153,44 +152,6 @@ def get_email_details(service, message_id: str) -> dict[str, Any] | None:
         
     except Exception as e:
         return None
-
-
-def get_email_body(service, message_id: str) -> str:
-    """
-    Get the body content of an email.
-    
-    Args:
-        service: Gmail API service object
-        message_id: The email message ID
-        
-    Returns:
-        Email body text
-    """
-    try:
-        message = service.users().messages().get(
-            userId="me",
-            id=message_id,
-            format="full",
-        ).execute()
-        
-        payload = message.get("payload", {})
-        
-        # Try to get text/plain body
-        if "body" in payload and payload["body"].get("data"):
-            return base64.urlsafe_b64decode(payload["body"]["data"]).decode("utf-8")
-        
-        # Check parts for multipart messages
-        parts = payload.get("parts", [])
-        for part in parts:
-            if part.get("mimeType") == "text/plain":
-                data = part.get("body", {}).get("data")
-                if data:
-                    return base64.urlsafe_b64decode(data).decode("utf-8")
-        
-        return message.get("snippet", "")
-        
-    except Exception:
-        return ""
 
 
 def trash_emails(service, message_ids: list[str]) -> dict[str, Any]:

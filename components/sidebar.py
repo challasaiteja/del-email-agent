@@ -3,7 +3,6 @@
 import streamlit as st
 
 from config import DEFAULT_DAYS_OLD
-from utils.logger import log_filter_applied
 
 
 def render_sidebar_filters(labels: list[dict] | None = None) -> dict:
@@ -141,33 +140,4 @@ def render_sidebar_stats(emails: list[dict], sender_stats: dict[str, int]):
             st.sidebar.text(f"{display_sender}: {count}")
 
 
-def render_sidebar_actions(selected_count: int, on_delete: callable, on_select_all: callable):
-    """
-    Render action buttons in the sidebar.
-    
-    Args:
-        selected_count: Number of currently selected emails
-        on_delete: Callback for delete action
-        on_select_all: Callback for select all action
-    """
-    st.sidebar.divider()
-    st.sidebar.header("⚡ Actions")
-    
-    st.sidebar.write(f"**Selected:** {selected_count} emails")
-    
-    col1, col2 = st.sidebar.columns(2)
-    
-    with col1:
-        if st.button("Select All", use_container_width=True):
-            on_select_all()
-    
-    with col2:
-        delete_disabled = selected_count == 0
-        if st.button(
-            "🗑️ Delete",
-            use_container_width=True,
-            disabled=delete_disabled,
-            type="primary",
-        ):
-            on_delete()
 
